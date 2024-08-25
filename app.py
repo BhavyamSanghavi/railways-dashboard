@@ -23,7 +23,7 @@ def fetch_data():
 def convert_to_dataframe(data):
     df = pd.DataFrame(data)
     df['timestamp'] = pd.to_datetime(df['timestamp'])
-    df.rename(columns={"_id": "ID", "category": "Category", "original_complaint": "Issue", "status": "Status", "timestamp": "Date Submitted", "text_summary": "Summary", "file_data": "File Data"}, inplace=True)
+    df.rename(columns={"_id": "ID", "category": "Category", "original_complaint": "Issue", "status": "Status", "timestamp": "Date Submitted", "text_summary": "Summary","image_summary":"Image Summary", "file_data": "File Data"}, inplace=True)
     df['Priority'] = df.apply(lambda x: "High" if "safety and security" or "extremely negative" in str(x['Summary']).lower() else ("Medium" if "negative" in str(x['Summary']).lower() else "Low"), axis=1)
     return df
 
@@ -114,6 +114,7 @@ def display_complaints():
             st.write(f"**Priority:** {row['Priority']}")
             st.write(f"**Date Submitted:** {row['Date Submitted']}")
             st.write(f"**Summary:** {row['Summary']}")
+            st.write(f"**Image Summary:** {row['Image Summary']}")
             
             # Display image if present
             if pd.notna(row["File Data"]):
