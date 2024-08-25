@@ -2,7 +2,6 @@ import altair as alt
 import streamlit as st
 import pandas as pd
 from pymongo import MongoClient
-from bson.objectid import ObjectId
 from PIL import Image
 import io
 import base64
