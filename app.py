@@ -24,7 +24,7 @@ def convert_to_dataframe(data):
     df = pd.DataFrame(data)
     df['timestamp'] = pd.to_datetime(df['timestamp'])
     df.rename(columns={"_id": "ID", "category": "Category", "original_complaint": "Issue", "status": "Status", "timestamp": "Date Submitted", "text_summary": "Summary", "file_data": "File Data"}, inplace=True)
-    df['Priority'] = df.apply(lambda x: "High" if "extremely negative" in str(x['Summary']).lower() else ("Medium" if "negative" in str(x['Summary']).lower() else "Low"), axis=1)
+    df['Priority'] = df.apply(lambda x: "High" if "safety and security" or "extremely negative" in str(x['Summary']).lower() else ("Medium" if "negative" in str(x['Summary']).lower() else "Low"), axis=1)
     return df
 
 # Update status in MongoDB
